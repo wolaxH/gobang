@@ -13,7 +13,7 @@ const.GRID = 25
 const.NUM = 23
 const.LEN = 550
 const.WIN = 5
-
+#測試
 class Chess:
     def __init__(self):
         self.cord = []        
@@ -35,11 +35,11 @@ class Chess:
         print('size=', self.size)   
         
 def drawBoard():
-    img = np.zeros((700,700,3), dtype='uint8')   # 繪製 300x300 的畫布
-    img[:] = (118, 208, 255)                     # 改成淡黃色   
-    for i in range(const.NUM):                   # 棋盤黑線
-        cv2.line(img,(const.MARGIN, const.MARGIN+ i*const.GRID),(const.MARGIN+const.LEN, const.MARGIN + i*const.GRID),(0,0,0),1)  # 繪製線條
-        cv2.line(img,(const.MARGIN+ i*const.GRID, const.MARGIN),(const.MARGIN + i*const.GRID, const.MARGIN+const.LEN),(0,0,0),1)  # 繪製線條        
+    img = np.zeros((700,700,3), dtype='uint8')   # 繪製 300x300 ?????��??
+    img[:] = (118, 208, 255)                     # ??��??淡�?????   
+    for i in range(const.NUM):                   # �???��??�?
+        cv2.line(img,(const.MARGIN, const.MARGIN+ i*const.GRID),(const.MARGIN+const.LEN, const.MARGIN + i*const.GRID),(0,0,0),1)  # 繪製�?�?
+        cv2.line(img,(const.MARGIN+ i*const.GRID, const.MARGIN),(const.MARGIN + i*const.GRID, const.MARGIN+const.LEN),(0,0,0),1)  # 繪製�?�?        
     return img
 
 def checkWin(data: list):
@@ -63,18 +63,18 @@ def checkWin(data: list):
 #print(checkWin([0,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,0,1,0]))
 
 def checkBoardColumns(board: list):
-    for d in board:                 # 檢查 board 矩陣 直欄是否連續 N 個
+    for d in board:                 # 檢�?? board ??��?? ??��????��?��??�? N ???
         if checkWin(d)==True:
             return True
 
 def checkBoardRows(board: list):    
-    for i in range(len(board[0])):  # 檢查 board 矩陣 橫列是否連續 N 個
-        t =[d[i] for d in board]    # 將橫列轉換成 list
+    for i in range(len(board[0])):  # 檢�?? board ??��?? 橫�????��?��??�? N ???
+        t =[d[i] for d in board]    # �?橫�??�??????? list
         if checkWin(t)==True:
             return True   
     
 def checkBoardSlashLR(board: list):
-    for i in range(len(board)):     # 檢查 board 矩陣，左上斜向右下，下三角，是否連續 N 個
+    for i in range(len(board)):     # 檢�?? board ??��??�?左�??????????��??�?�?�?�?�???��?��??�? N ???
         x, y, t = 0, i, []
         while True:
             if y>=len(board): break
@@ -84,7 +84,7 @@ def checkBoardSlashLR(board: list):
         if checkWin(t)==True:
             return True       
 
-    for i in range(1,len(board)):     # # 檢查 board 矩陣，左上斜向右下，上三角，是否連續 N 個
+    for i in range(1,len(board)):     # # 檢�?? board ??��??�?左�??????????��??�?�?�?�?�???��?��??�? N ???
         x, y, t = i, 0, []
         while True:
             if x>=len(board): break
@@ -97,7 +97,7 @@ def checkBoardSlashLR(board: list):
 
 def checkBoardSlashRL(board: list):
     LEN = len(board)
-    for i in range(LEN):     # 檢查 board 矩陣，右上斜向左下，下三角，是否連續 N 個
+    for i in range(LEN):     # 檢�?? board ??��??�???��????????左�??�?�?�?�?�???��?��??�? N ???
         x, y, t = (LEN-1), i, []
         while True:
             if x<0 or y>=LEN: break
@@ -107,7 +107,7 @@ def checkBoardSlashRL(board: list):
         if checkWin(t)==True:
             return True       
 
-    for i in range(LEN-1):     # # 檢查 board 矩陣，右上斜向左下，上三角，是否連續 N 個
+    for i in range(LEN-1):     # # 檢�?? board ??��??�???��????????左�??�?�?�?�?�???��?��??�? N ???
         x, y, t = i, 0, []
         while True:
             if x<0 or y>=LEN: break
@@ -119,11 +119,11 @@ def checkBoardSlashRL(board: list):
     return False
     
 def isGameOver(chess: Chess, player: int):
-    # 取出 chess 物件紀錄的 x, y 座標
+    # ?????? chess ??�件�??????? x, y 座�??
     data = [(d[0], d[1]) for d in chess.cord if d[2]==player]
-    # 初始化 N*N board 矩陣棋盤，設定為 0
+    # ???�???? N*N board ??��??�???��??設�????? 0
     board =[[0 for j in range(const.NUM)] for i in range(const.NUM)]
-    # 將 chess 物件 x, y 資料轉成 N*N board 矩陣棋盤資料，有下棋的位置設定為 1
+    # �? chess ??�件 x, y �????�???? N*N board ??��??�???��?????�????�?�????�?置設�???? 1
     for i in range(const.NUM):
         for j in range(const.NUM):
             if (i, j) in data:
